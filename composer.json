@@ -5,6 +5,8 @@
   "license": "MIT",
   "keywords": [
     "eurofxref",
+    "currency",
+    "exchange",
     "api",
     "library",
     "sdk",
