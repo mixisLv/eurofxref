@@ -10,10 +10,10 @@ The following PHP extension is required:
 
 * curl
 
-  composer require "mixislv/eurofxref" "1.0.*"
-
+    composer require "mixislv/eurofxref" "1.0.*"
+    
 Or by adding the following to your composer.json:
-
-  "require": {
-    "mixislv/eurofxref": "1.0.*"
-  }
+    
+    "require": {
+        "mixislv/eurofxref": "1.0.*"
+    }
