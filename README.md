@@ -24,10 +24,6 @@ Or by adding the following to your composer.json:
         "mixislv/eurofxref": "1.0.*-dev"
     }
 
-## Usage
-
-...
-
 ## Examples
 
-...
+Check out [examples directory](/examples) for usage examples
