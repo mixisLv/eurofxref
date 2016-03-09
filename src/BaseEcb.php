@@ -7,13 +7,12 @@
 
 namespace mixisLv\eurofxref;
 
-abstract class BaseApi
+abstract class BaseEcb
 {
-    protected $api;
+    protected $ecb;
 
-    public function __construct(Api $api)
+    public function __construct(Ecb $ecb)
     {
-        $this->api = $api;
+        $this->ecb = $ecb;
     }
 }
-

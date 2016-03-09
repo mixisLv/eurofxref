@@ -9,8 +9,9 @@ The reference rates are usually updated by 15:00 CET on every working day, excep
 
 The following PHP extension is required:
 
-* PHP >= 5.4.0 
-* curl
+* PHP >= 5.4.0
+* option allow_url_fopen=On (default)
+* libxml
 
 ## Installing 
 

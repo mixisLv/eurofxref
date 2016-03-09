@@ -7,6 +7,6 @@
 
 namespace mixisLv\eurofxref\Exceptions;
 
-class ApiException extends \Exception
+class EcbException extends \Exception
 {
 }
