@@ -10,7 +10,7 @@ use mixisLv\eurofxref\Ecb\Rates;
  *
  * @package mixisLv\eurofxref
  *
- * @property Rates $retrieve
+ * @property Rates $rates
  *
  *
  * @author Mikus Rozenbergs <mikus.rozenbergs@gmail.com>
@@ -61,7 +61,7 @@ class Ecb
         }
     }
 
-    private function retraveXmlData($params = [])
+    private function retrieveXmlData()
     {
         $useErrors = libxml_use_internal_errors(true);
         $xml       = simplexml_load_file($this->ecbDailyUrl);
@@ -72,16 +72,16 @@ class Ecb
             }
             libxml_clear_errors();
             libxml_use_internal_errors($useErrors);
-            //throw new EcbException("Unprocessable Entity: \n" . $errors);
+            throw new EcbException("Unprocessable Entity: \n" . $errors);
         } else {
             libxml_use_internal_errors($useErrors);
         }
         return $xml;
     }
 
-    private function retraveExchangeRates()
+    private function retrieveExchangeRates()
     {
-        $xml = $this->retraveXmlData();
+        $xml = $this->retrieveXmlData();
         try {
             if (isset($xml->Cube, $xml->Cube->Cube, $xml->Cube->Cube->Cube)) {
                 $this->exchangeRates = [];
@@ -100,7 +100,7 @@ class Ecb
     public function getExchangeRates()
     {
         if (!isset($this->exchangeRates)) {
-            $this->retraveExchangeRates();
+            $this->retrieveExchangeRates();
         }
         return $this->exchangeRates;
     }
