@@ -15,6 +15,7 @@ class Rates extends BaseEcb
      * all
      *
      * @return array
+     * @throws \mixisLv\eurofxref\Exceptions\EcbException
      */
     public function all()
     {
@@ -28,6 +29,7 @@ class Rates extends BaseEcb
      * @param $currency
      *
      * @return float
+     * @throws \mixisLv\eurofxref\Exceptions\EcbException
      */
     public function single($currency)
     {

@@ -7,7 +7,7 @@
 
 namespace mixisLv\eurofxref\Params;
 
-use mixisLv\eurofxref\Exceptions\ApiException;
+use mixisLv\eurofxref\Exceptions\EcbException;
 
 abstract class BaseParams
 {
@@ -21,7 +21,7 @@ abstract class BaseParams
     public function __set($property, $value)
     {
         if (!property_exists($this, $property)) {
-            throw new ApiException(get_class($this) . ' does not accepts property: ' . $property);
+            throw new EcbException(get_class($this) . ' does not accepts property: ' . $property);
         } else {
             if (method_exists($this, $functionName = 'sanitize' . ucfirst($property))) {
                 $this->$property = $this->$functionName($value);

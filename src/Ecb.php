@@ -2,8 +2,8 @@
 
 namespace mixisLv\eurofxref;
 
-use mixisLv\eurofxref\Exceptions\EcbException;
 use mixisLv\eurofxref\Ecb\Rates;
+use mixisLv\eurofxref\Exceptions\EcbException;
 
 /**
  * Class Ecb
@@ -55,12 +55,57 @@ class Ecb
             switch ($property) {
                 case 'rates':
                     $this->$property = new Rates($this);
-                break;
+                    break;
             }
+
             return isset($this->$property) ? $this->$property : null;
         }
     }
 
+    /**
+     * getExchangeRates
+     *
+     * @return array
+     * @throws EcbException
+     */
+    public function getExchangeRates()
+    {
+        if (!isset($this->exchangeRates)) {
+            $this->retrieveExchangeRates();
+        }
+
+        return $this->exchangeRates;
+    }
+
+    /**
+     * retrieveExchangeRates
+     *
+     * @throws EcbException
+     */
+    private function retrieveExchangeRates()
+    {
+        try {
+            $xml = $this->retrieveXmlData();
+            if (isset($xml->Cube, $xml->Cube->Cube, $xml->Cube->Cube->Cube)) {
+                $this->exchangeRates = [];
+                foreach ($xml->Cube->Cube->Cube as $rate) {
+                    // the value of 1EUR for a currency code
+                    $this->exchangeRates[(string)$rate->attributes()->currency] = (float)$rate->attributes()->rate;
+                }
+            } else {
+                throw new EcbException('no data');
+            }
+        } catch (\Exception $e) {
+            throw new EcbException($e->getMessage());
+        }
+    }
+
+    /**
+     * retrieveXmlData
+     *
+     * @return \SimpleXMLElement
+     * @throws EcbException
+     */
     private function retrieveXmlData()
     {
         $useErrors = libxml_use_internal_errors(true);
@@ -76,33 +121,8 @@ class Ecb
         } else {
             libxml_use_internal_errors($useErrors);
         }
+
         return $xml;
-    }
-
-    private function retrieveExchangeRates()
-    {
-        $xml = $this->retrieveXmlData();
-        try {
-            if (isset($xml->Cube, $xml->Cube->Cube, $xml->Cube->Cube->Cube)) {
-                $this->exchangeRates = [];
-                foreach ($xml->Cube->Cube->Cube as $rate) {
-                    // the value of 1EUR for a currency code
-                    $this->exchangeRates[(string)$rate->attributes()->currency] = (float)$rate->attributes()->rate;
-                }
-            } else {
-                throw new EcbException('no data');
-            }
-        } catch (\Exception $e) {
-            throw new EcbException($e->getMessage());
-        }
-    }
-
-    public function getExchangeRates()
-    {
-        if (!isset($this->exchangeRates)) {
-            $this->retrieveExchangeRates();
-        }
-        return $this->exchangeRates;
     }
 
     /**
@@ -116,5 +136,4 @@ class Ecb
             echo '<pre>', $message, '</pre>';
         }
     }
-
 }

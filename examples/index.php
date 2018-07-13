@@ -18,7 +18,16 @@
 <body>
 
 <h1>Examples</h1>
-<h2>Retrieve</h2>
-<p>@todo</p>
+<h3>
+    Get rates
+    <a href="#" onclick="toggleVisibility('get');">source</a> |
+    <a href="get.php" target="_blank">demo</a>
+</h3>
+
+<div id="get" style="display: none;">
+    <?php $file = file_get_contents('get.php');
+    highlight_string($file); ?>
+</div>
+
 </body>
 </html>

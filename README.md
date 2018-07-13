@@ -17,14 +17,22 @@ The following PHP extension is required:
 
 You can install eurofxref via Composer with:
 
-    composer require "mixislv/eurofxref" "1.0.*-dev"
+    composer require "mixislv/eurofxref" "1.0.*"
     
 Or by adding the following to your composer.json:
     
     "require": {
-        "mixislv/eurofxref": "1.0.*-dev"
+        "mixislv/eurofxref": "1.0.*"
     }
 
-## Examples
+## Usage
+
+```php
+use mixisLv\eurofxref\Ecb;
+
+$ecb  = new Ecb();
+
+var_dump($ecb->rates->single("USD"));
+```
 
 Check out [examples directory](/examples) for usage examples
