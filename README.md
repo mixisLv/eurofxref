@@ -17,12 +17,12 @@ The following PHP extension is required:
 
 You can install eurofxref via Composer with:
 
-    composer require "mixislv/eurofxref" "1.0.*"
+    composer require "mixislv/eurofxref" "^1.0"
     
 Or by adding the following to your composer.json:
     
     "require": {
-        "mixislv/eurofxref": "1.0.*"
+        "mixislv/eurofxref": "^1.0"
     }
 
 ## Usage
